@@ -4,6 +4,8 @@ import { Text, View, Image } from "react-native";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
 import { Ionicons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import Tabs from "./navigations/Tabs";
 
 const loadImages = (images) =>
   images.map((image) => {
@@ -33,6 +35,7 @@ export default function App() {
       } catch (e) {
         console.warn(e);
       } finally {
+        await SplashScreen.hideAsync();
         // Tell the application to render
         setAppIsReady(true);
       }
@@ -41,22 +44,9 @@ export default function App() {
     prepare();
   }, []);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [appIsReady]);
-
-  if (!appIsReady) {
-    return null;
-  }
-
   return (
-    <View
-      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-      onLayout={onLayoutRootView}
-    >
-      <Text>SplashScreen Demo! 👋</Text>
-    </View>
+    <NavigationContainer>
+      <Tabs />
+    </NavigationContainer>
   );
 }
