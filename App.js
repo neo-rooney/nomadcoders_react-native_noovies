@@ -44,6 +44,8 @@ export default function App() {
     prepare();
   }, []);
 
+  if (!appIsReady) return null;
+
   return (
     <NavigationContainer>
       <Tabs />
