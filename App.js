@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
-import { Text, View, Image } from "react-native";
+import { Image, useColorScheme } from "react-native";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
-import Tabs from "./navigations/Tabs";
-import Stack from "./navigations/Stack";
+
 import Nav from "./navigations/Root";
+import { ThemeProvider } from "styled-components";
+import { DarkTheme, LightTheme } from "./theme/styled";
 
 const loadImages = (images) =>
   images.map((image) => {
@@ -23,6 +24,7 @@ const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const isDark = useColorScheme() === "dark";
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
@@ -49,8 +51,10 @@ export default function App() {
   if (!appIsReady) return null;
 
   return (
-    <NavigationContainer>
-      <Nav />
-    </NavigationContainer>
+    <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
+      <NavigationContainer>
+        <Nav />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
