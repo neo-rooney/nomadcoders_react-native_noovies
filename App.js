@@ -6,6 +6,7 @@ import { Asset } from "expo-asset";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import Tabs from "./navigations/Tabs";
+import Stack from "./navigations/Stack";
 
 const loadImages = (images) =>
   images.map((image) => {
@@ -48,7 +49,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tabs />
+      <Stack />
     </NavigationContainer>
   );
 }
